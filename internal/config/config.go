@@ -12,7 +12,10 @@ type Config struct {
 	APIKey string `toml:"api_key"`
 }
 
-var configFile string
+var (
+	configFile string
+	SECKey string = ""
+)
 
 func init() {
 	configFile = filepath.Join(xdg.DataHome, "gopud", "config.toml")
@@ -24,6 +27,12 @@ func LoadConfig() (*Config, error) {
 		return &Config{}, nil
 	} else if err != nil {
 		return nil, err
+	}
+
+	if SECKey == "" {
+		if val := os.Getenv("SEC_KEY"); val != "" {
+			SECKey = val;
+		}
 	}
 
 	cfg := &Config{}
