@@ -3,7 +3,14 @@ package main
 import (
 	"fmt"
 
+	"encoding/base64"
+
 	"gopud/internal/config"
+	"gopud/internal/security"
+)
+
+var (
+	YouAPIKey	string
 )
 
 func main() {
@@ -13,7 +20,15 @@ func main() {
 	}
 
 	if cfg.APIKey == "" {
-		cfg.APIKey = "MyAPIKey"
+		if config.SECKey == "" {
+			// config.SECKey = "vSECKEY"
+			config.SECKey = "12345678901234567890123456789012"
+		}
+		types64, err := security.EncryptData([]byte("Hello World !!!"), []byte(config.SECKey))
+		if err != nil {
+			fmt.Println("Base64 APIKey Error: ", err)
+		}
+		cfg.APIKey = base64.StdEncoding.EncodeToString(types64)
 		err = config.SaveConfig(cfg)
 		if err != nil {
 			fmt.Println("Can't create config File !!!")

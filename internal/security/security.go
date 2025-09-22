@@ -2,7 +2,7 @@ package security
 
 import (
 	"bytes"
-	"errors"
+	_ "errors"
 	"fmt"
 	_ "io"
 
