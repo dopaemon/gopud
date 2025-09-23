@@ -11,21 +11,11 @@ GARBLE_FLAGS := -literals -tiny -seed=random
 LDFLAGS := -s -w
 CGO_ENABLED ?= 0
 
-.PHONY: all clean build genkey linux windows darwin android native
+.PHONY: all clean build linux windows darwin android native
 
 all: clean build
 
-# Tạo key mới nếu main.go còn chứa vSECKEY
-genkey:
-	@if grep -q "vSECKEY" $(MAIN)/main.go; then \
-		KEY=$$(go run ./cmd/genkey/main.go); \
-		sed -i "s/vSECKEY/$$KEY/g" $(MAIN)/main.go; \
-		printf "Generated key: %s\n" "$$KEY"; \
-	else \
-		echo "vSECKEY not found, skipping key generation"; \
-	fi
-
-build: genkey
+build:
 	@mkdir -p $(BUILD_DIR)
 	@for os in $(GOOS); do \
 		for arch in $(GOARCH); do \
