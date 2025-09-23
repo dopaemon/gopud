@@ -8,7 +8,7 @@ import (
 	"gopud/internal/config"
 )
 
-var SecKey string = "58398300406949656740850173328796"
+var SecKey string = "vSECKEY"
 
 func realMain() int {
 	root.Execute()
