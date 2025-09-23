@@ -16,7 +16,7 @@ func realMain() int {
 }
 
 func main() {
-	// go build -v -ldflags "-X 'main.SecKey=$(go run ./cmd/genkey/main.go)'"
+	// garble -literals build -trimpath -buildvcs=false -ldflags "-s -w -X 'main.SecKey=$(go run ./cmd/genkey/main.go)'"
 
 	if SecKey == "" {
 		fmt.Println("Read main.go for learn build !!!")
