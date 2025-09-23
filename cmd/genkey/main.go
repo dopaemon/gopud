@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	fmt.Print(utils.Random(32))
+	fmt.Printf("%s\n", utils.Random(32))
 }

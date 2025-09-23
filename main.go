@@ -8,7 +8,7 @@ import (
 	"gopud/internal/config"
 )
 
-var SecKey string
+var SecKey string = "vSECKEY"
 
 func realMain() int {
 	root.Execute()
@@ -16,8 +16,6 @@ func realMain() int {
 }
 
 func main() {
-	// garble -literals build -trimpath -buildvcs=false -ldflags "-s -w -X 'main.SecKey=$(go run ./cmd/genkey/main.go)'"
-
 	if SecKey == "" {
 		fmt.Println("Read main.go for learn build !!!")
 	}
