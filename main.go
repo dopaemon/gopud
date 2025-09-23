@@ -5,6 +5,8 @@ import (
 
 	"encoding/base64"
 
+
+	"gopud/internal/flags"
 	"gopud/internal/config"
 	"gopud/internal/security"
 )
@@ -14,6 +16,8 @@ var (
 )
 
 func main() {
+	_, _ = flags.Flags()
+
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		fmt.Println("Config file not exist !!!")
