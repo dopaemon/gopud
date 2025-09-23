@@ -1,4 +1,4 @@
-package cmd
+package root
 
 import (
 	"gopud/internal/app"
@@ -19,6 +19,5 @@ var uploadCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(uploadCmd)
-	
 	uploadCmd.Flags().BoolP("verbose", "v", true, "Show more information after an upload (Anonymous, ID, URL)")
 }

@@ -1,4 +1,4 @@
-package cmd
+package root
 
 import (
 	"context"
@@ -22,6 +22,7 @@ var rootCmd = &cobra.Command{
 
 It doesn’t really do anything, but that’s the point.™`,
 	Example: `
+
 # Run it:
 gopud
 
@@ -60,14 +61,13 @@ func init() {
 					),
 				)
 				if err := form.Run(); err != nil || tokenInput == "" || tokenInput == "exit" {
-					fmt.Println("Hủy thiết lập API Key")
 					os.Exit(0)
 				}
 				key = tokenInput
 			}
 
 			if err := saveAPIKey(key); err != nil {
-				fmt.Println("Lỗi lưu API Key:", err)
+				fmt.Println(err)
 				os.Exit(1)
 			}
 			fmt.Println("API Key saved successfully!")
@@ -78,10 +78,6 @@ func init() {
 func saveAPIKey(key string) error {
 	if !utils.VerifyPixelDrainAPIKey(key) {
 		return fmt.Errorf("invalid API key")
-	}
-
-	if config.SECKey == "" {
-		config.SECKey = "12345678901234569876432126789013"
 	}
 
 	encrypted, err := security.EncryptData([]byte(key), []byte(config.SECKey))
@@ -98,10 +94,6 @@ func saveAPIKey(key string) error {
 func ensureAPIKey() {
 	cfg, _ := config.LoadConfig()
 
-	if config.SECKey == "" {
-		config.SECKey = "12345678901234569876432126789013"
-	}
-
 	if len(cfg.APIKey) < 5 || !utils.VerifyPixelDrainAPIKey(GetAPIKey(cfg.APIKey)) {
 		for {
 			form := huh.NewForm(
@@ -115,7 +107,6 @@ func ensureAPIKey() {
 			)
 
 			if err := form.Run(); err != nil || tokenInput == "" || tokenInput == "exit" {
-				fmt.Println("Thoát chương trình")
 				os.Exit(0)
 			}
 
