@@ -2,23 +2,24 @@ package main
 
 import (
 	"fmt"
+	"os"
 
+	"gopud/cmd/root"
 	"gopud/internal/config"
 )
 
+var SecKey string = "vSECKEY"
+
+func realMain() int {
+	root.Execute()
+	return 0
+}
+
 func main() {
-	cfg, err := config.LoadConfig()
-	if err != nil {
-		fmt.Println("Config file not exist !!!")
+	if SecKey == "" {
+		fmt.Println("Read main.go for learn build !!!")
 	}
 
-	if cfg.APIKey == "" {
-		cfg.APIKey = "MyAPIKey"
-		err = config.SaveConfig(cfg)
-		if err != nil {
-			fmt.Println("Can't create config File !!!")
-		}
-	}
-
-	fmt.Println("Hello World !!!")
+	config.SECKey = SecKey
+	os.Exit(realMain())
 }

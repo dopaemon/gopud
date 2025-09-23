@@ -15,6 +15,7 @@ type Config struct {
 var (
 	configFile string
 	SECKey string = ""
+	APIRawKey string = ""
 )
 
 func init() {
