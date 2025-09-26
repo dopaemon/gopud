@@ -1,0 +1,17 @@
+Source: gopud
+Section: utils
+Priority: optional
+Maintainer: dopaemon <polarisdp@gmail.com>
+Build-Depends: debhelper-compat (= 13), dh-golang, golang-any
+Standards-Version: 4.6.2
+Homepage: https://github.com/dopaemon/gopud
+
+Package: gopud
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PixelDrain upload/download tool written in Go
+ A lightweight command-line utility for uploading and downloading
+ files to and from PixelDrain. Built with Go, gopud is fast,
+ portable, and easy to integrate into shell scripts or automation
+ workflows. Suitable for users who need a simple way to handle
+ PixelDrain file transfers directly from the terminal.

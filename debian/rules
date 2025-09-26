@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+BIN_NAME := gopud
+PATH := /usr/local/go/bin:$(PATH)
+DH_GOPKG := gopud
+override_dh_golang:
+
+%:
+	dh $@ --with=golang
+
+override_dh_clean:
+	dh_clean
+
+override_dh_auto_build:
+	git checkout HEAD main.go && \
+	KEY=$$(tr -dc '0-9' < /dev/urandom | head -c32) && \
+	sed -i "s/\"vSECKEY\"/\"$${KEY}\"/" main.go && \
+	GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -ldflags "-s -w" -v -o $(BIN_NAME) main.go && \
+	git checkout HEAD main.go
+
+override_dh_auto_install:
+	mkdir -p debian/$(BIN_NAME)/usr/bin
+	cp $(BIN_NAME) debian/$(BIN_NAME)/usr/bin/
